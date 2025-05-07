@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz Cumpleaños, Mi Amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    /* ... TU CSS NO CAMBIA (ya está bien) ... */
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Feliz Cumpleaños, Mi Amor 🎂</h1>
+    <p>El 7 de junio es un día mágico... porque naciste vos.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Una pequeña sorpresa</h2>
+      <p>
+        Esta página es un regalo hecho con todo mi amor, para recordarte lo especial que sos para mí. 
+        No hay palabras que alcancen para describir lo feliz que me hace compartir mi vida con vos.
+      </p>
+    </section>
+
+    <section>
+      <h2>🎵 Música de cumpleaños</h2>
+      <p>Presioná el botón para escuchar una sorpresita musical 🎶</p>
+      <button class="btn" onclick="toggleMusic()">▶ Reproducir / Pausar</button>
+      <audio id="birthdaySong" src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_2f23fc0296.mp3?filename=soft-happy-birthday-141186.mp3" preload="auto"></audio>
+    </section>
+
+    <section>
+      <h2>📸 Nuestros momentos</h2>
+      <div class="galeria">
+        <img src="foto1.jpg" alt="Foto 1">
+        <img src="foto2.jpg" alt="Foto 2">
+      </div>
+      <p style="text-align: center; margin-top: 1rem;">(Reemplazá <code>foto1.jpg</code> y <code>foto2.jpg</code> con tus fotos.)</p>
+    </section>
+
+    <section>
+      <h2>🔍 Pistas para encontrar tu regalo</h2>
+      <button class="btn" onclick="iniciarPistas()">🎁 Iniciar pistas</button>
+      <div class="cronometro" id="cronometro">⏱️ Tiempo: 00:00</div>
+
+      <div class="pista" id="pista1">
+        <p><strong>Pista 1:</strong> El lugar donde siempre reímos y nos sacamos la mejor selfie.</p>
+        <button class="btn" onclick="mostrarPista(2)">✔ Completada</button>
+      </div>
+
+      <div class="pista" id="pista2">
+        <p><strong>Pista 2:</strong> Mirá debajo del almohadón donde descansás los domingos 😉</p>
+        <button class="btn" onclick="mostrarPista(3)">✔ Completada</button>
+      </div>
+
+      <div class="pista" id="pista3">
+        <p><strong>Pista 3:</strong> Donde siempre terminamos abrazados mirando el techo ✨</p>
+        <button class="btn" onclick="mostrarPista(4)">✔ Completada</button>
+      </div>
+
+      <div class="pista" id="pista4">
+        <p><strong>Pista final:</strong> Buscá donde guardamos nuestras memorias (¿una caja, una carpeta, un rincón?) 📦</p>
+        <button class="btn" onclick="mostrarFelicidades()">🎉 Ver mensaje final</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Hecho con amor por tu persona favorita 💌
+  </footer>
+
+  <div id="modalFelicidades" class="modal">
+    <div class="modal-contenido">
+      <h2>🎉 ¡Felicidades, Mi Amor! 🎁</h2>
+      <p>Encontraste el regalo... pero el verdadero regalo sos vos para mí 💖</p>
+      <button onclick="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    const music = document.getElementById("birthdaySong");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play().catch(error => {
+          console.error("Error al reproducir música:", error);
+        });
+      } else {
+        music.pause();
+      }
+    }
+
+    let cronometroInterval;
+    let segundos = 0;
+
+    function iniciarPistas() {
+      document.getElementById("pista1").style.display = "block";
+      iniciarCronometro();
+    }
+
+    function mostrarPista(numero) {
+      const pistaId = "pista" + numero;
+      const pista = document.getElementById(pistaId);
+      if (pista) {
+        pista.style.display = "block";
+
+        if (numero === 4) {
+          setTimeout(() => {
+            mostrarFelicidades();
+          }, 300);
+        }
+      }
+    }
+
+    function iniciarCronometro() {
+      const cronometro = document.getElementById("cronometro");
+      cronometroInterval = setInterval(() => {
+        segundos++;
+        const min = String(Math.floor(segundos / 60)).padStart(2, '0');
+        const seg = String(segundos % 60).padStart(2, '0');
+        cronometro.textContent = `⏱️ Tiempo: ${min}:${seg}`;
+      }, 1000);
+    }
+
+    function mostrarFelicidades() {
+      document.getElementById("modalFelicidades").style.display = "flex";
+    }
+
+    function cerrarModal() {
+      document.getElementById("modalFelicidades").style.display = "none";
+    }
+  </script>
+</body>
+</html>
